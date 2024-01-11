@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ExercisesController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WorkoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +16,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// Welcome route
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/database-config', function () {
-    $config = config('database.connections.' . config('database.default'));
-    return $config;
+// Dashboard route
+Route::get('/dashboard', function () {
+    return view('dashboard.main');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Profile routes
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// feed route
+Route::get('/feed', function () {
+    echo 'here there will be a feed';
+});
+
+//workout routes
+Route::get('/workouts', [WorkoutController::class, 'index']);
+
+//exercise routes
+Route::get('/exercises', [ExercisesController::class, 'index']);
+
+
+
+require __DIR__.'/auth.php';
