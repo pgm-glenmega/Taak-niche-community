@@ -40,7 +40,7 @@ Route::get('/feed', function () {
 });
 
 //workout routes
-Route::get('/workouts', [WorkoutController::class, 'index']);
+Route::get('/workouts', [WorkoutController::class, 'index'])->name('workouts.main');
 
 //exercise routes
 Route::get('/exercises', [ExercisesController::class, 'index']);
