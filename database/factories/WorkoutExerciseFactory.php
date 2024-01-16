@@ -24,7 +24,6 @@ class WorkoutExerciseFactory extends Factory
             'exercise_id' => Exercise::factory(),
             'sets' => fake()->numberBetween(1, 5),
             'reps' => fake()->numberBetween(5, 20),
-            // Add any additional fields in the pivot table here if needed
         ];
     }
 }

@@ -39,15 +39,15 @@ Route::middleware('auth')->group(function () {
 
 //workout routes
 Route::get('/workouts', [WorkoutController::class, 'index'])->name('workouts.main');
-Route::get('/workouts/{id}', [WorkoutController::class, 'detail'])->name('workouts.detail'); 
 Route::get('/workouts/create', [WorkoutController::class, 'create'])->name('workouts.create');
 Route::post('/workouts/store', [WorkoutController::class, 'store'])->name('workouts.store');
 Route::get('/workouts/search', [WorkoutController::class, 'search'])->name('workouts.search');
+Route::get('/workouts/{id}', [WorkoutController::class, 'detail'])->name('workouts.detail'); 
 
 //exercise routes
 Route::get('/exercises', [ExercisesController::class, 'index'])->name('exercises.main');
-Route::get('/exercises/{id}', [ExercisesController::class, 'detail'])->where('id', '[0-9]+')->name('exercises.detail');
 Route::get('/exercises/search', [ExercisesController::class, 'search'])->name('exercises.search');
+Route::get('/exercises/{id}', [ExercisesController::class, 'detail'])->name('exercises.detail');
 
 //review routes
 Route::get('/reviews', [ReviewController::class, 'userReviews'])->name('reviews.main');

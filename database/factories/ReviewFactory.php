@@ -14,10 +14,10 @@ class ReviewFactory extends Factory
         $workout_ids = Workout::pluck('id')->toArray();
 
         return [
-            'content' => $this->faker->text(),
-            'rating' => $this->faker->numberBetween(1, 10),
-            'user_id' => $this->faker->randomElement($user_ids),
-            'workout_id' => $this->faker->randomElement($workout_ids),
+            'content' => fake()->text(),
+            'rating' => fake()->numberBetween(1, 10),
+            'user_id' => fake()->randomElement($user_ids),
+            'workout_id' => fake()->randomElement($workout_ids),
             'created_at' => now(),
             'updated_at' => now(),
         ];

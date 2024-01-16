@@ -42,7 +42,6 @@
                 <textarea name="instructions" id="instructions" class="mt-1 p-2 border rounded-md w-full" rows="3" required></textarea>
             </div>
 
-
             <div class="mb-3">
                 <label class="block text-sm font-medium text-gray-600">Select Exercises</label>
                 @foreach($exercises as $exercise)
