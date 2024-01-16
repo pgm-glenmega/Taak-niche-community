@@ -43,7 +43,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // Define the inverse one-to-many relationship
     public function reviews()
     {
         return $this->hasMany(Review::class);
@@ -51,6 +50,8 @@ class User extends Authenticatable
 
     public function workouts()
     {
-        return $this->belongsToMany(Workout::class, 'user_workout');
+        return $this->belongsToMany(Workout::class, 'workout_user');
     }
+
+    
 }

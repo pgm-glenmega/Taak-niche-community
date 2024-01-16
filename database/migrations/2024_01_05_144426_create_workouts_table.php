@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,8 +12,10 @@ return new class extends Migration
     {
         Schema::create('workouts', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Name column
-            $table->integer('duration'); // Duration column (assuming integer, adjust as needed)
+            $table->string('name');
+            $table->integer('duration')->default(0);
+            $table->text('description')->nullable(); // Added description column
+            $table->text('instructions')->nullable(); // Added instructions column
             $table->timestamps();
         });
     }

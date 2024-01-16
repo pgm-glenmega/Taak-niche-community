@@ -1,15 +1,16 @@
 <?php
-
 namespace App\Http\Controllers;
+
 use App\Models\Workout;
+use App\Models\Bodypart;
+use App\Models\Exercise;
 use Illuminate\Http\Request;
 
 class WorkoutController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $bodyPartFilter = $request->query('body_part');
-
-        // Use the filter only if a body part is specified
         $workouts = $bodyPartFilter
             ? Workout::whereHas('bodyparts', function ($query) use ($bodyPartFilter) {
                 $query->where('name', $bodyPartFilter);
@@ -18,4 +19,64 @@ class WorkoutController extends Controller
 
         return view('workouts.main', ['workouts' => $workouts, 'selectedBodyPart' => $bodyPartFilter]);
     }
+
+    public function detail($id)
+    {
+        $workout = Workout::find($id);
+
+        return view('workouts.detail', ['workout' => $workout]);
+    }
+
+    public function create()
+    {
+        $bodyparts = Bodypart::all();
+
+        $exercises = Exercise::all();
+
+        return view('workouts.create', ['bodyparts' => $bodyparts], ['exercises' => $exercises]);
+    }
+
+    public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'duration' => 'required|integer',
+        'bodypart' => 'required|exists:bodyparts,id',
+        'exercises' => 'array', 
+        'description' => 'required|string', 
+    ]);
+
+    // Create the workout
+    $workout = Workout::create([
+        'name' => $request->input('name'),
+        'duration' => $request->input('duration'),
+        'bodypart_id' => $request->input('bodypart'),
+        'description' => $request->input('description'),
+        'instructions' => $request->input('instructions'),
+    ]);
+
+    $bodyparts = [$request->input('bodypart')];
+    $workout->bodyparts()->attach($bodyparts);
+
+    $exercises = $request->input('exercises');
+    $workout->exercises()->attach($exercises, [
+        'sets' => 3,
+        'reps' => 10,
+    ]);
+
+    return redirect()->route('workouts.main')->with('success', 'Workout added successfully.');
+}
+
+
+
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $workouts = Workout::where('name', 'like', '%' . $query . '%')->get();
+
+        return view('workouts.search-results', ['workouts' => $workouts, 'query' => $query]);
+    }
+    
 }

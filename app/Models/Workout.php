@@ -8,11 +8,17 @@ use App\Models\Exercise;
 use App\Models\Bodypart;
 use App\Models\User;
 
+
 class Workout extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+        'duration',
+        'description', 
+        'instructions',
+    ];
 
     public function exercises()
     {
@@ -28,5 +34,10 @@ class Workout extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'workout_user');
+    }
+
+    public function reviews()
+    {
+    return $this->hasMany(Review::class);
     }
 }

@@ -13,14 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //$this->call(BodypartsTableSeeder::class);
-        //$this->call(ExercisesTableSeeder::class);
-        //$this->call(ReviewsTableSeeder::class);
-        //$this->call(UsersTableSeeder::class);
-        //$this->call(WorkoutsTableSeeder::class);
-        //$this->call(WorkoutsBodypartTableSeeder::class);
-        //$this->call(WorkoutsExercisesTableSeeder::class);
-        //$this->call(WorkoutsUsersTableSeeder::class);
+        $this->call(BodypartsTableSeeder::class);
+        $this->call(ExercisesTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(WorkoutsTableSeeder::class);
+        $this->call(ReviewsTableSeeder::class);
+        $this->call(WorkoutsBodypartTableSeeder::class);
+        $this->call(WorkoutsExercisesTableSeeder::class);
+        $this->call(WorkoutsUsersTableSeeder::class);
+        $this->call(ExerciseBodypartSeeder::class);
         
         // \App\Models\User::factory(10)->create();
 

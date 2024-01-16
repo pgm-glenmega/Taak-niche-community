@@ -3,28 +3,24 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Review;
 use App\Models\User;
+use App\Models\Workout;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Review>
- */
 class ReviewFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    public function definition()
     {
-
         $user_ids = User::pluck('id')->toArray();
+        $workout_ids = Workout::pluck('id')->toArray();
 
         return [
             'content' => $this->faker->text(),
-            'rating' => $this->faker->numberBetween(1, 5),
-            'user_id' => fake()->randomElement($user_ids),
+            'rating' => $this->faker->numberBetween(1, 10),
+            'user_id' => $this->faker->randomElement($user_ids),
+            'workout_id' => $this->faker->randomElement($workout_ids),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
+

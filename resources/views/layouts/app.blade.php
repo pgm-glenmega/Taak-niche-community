@@ -32,6 +32,17 @@
             @yield('content')
             </main>
 
+            @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
             <footer>
                 <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
                     <p class="text-center text-gray-400">Made with ❤️ by <a href="https://www.linkedin.com/in/glen-meganck-840488250/" class="text-blue-500 hover:text-blue-600">Glen Meganck <small>(student at artevelde hogeschool)</small></a></p>

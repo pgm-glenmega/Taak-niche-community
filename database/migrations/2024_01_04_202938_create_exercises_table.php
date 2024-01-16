@@ -1,5 +1,6 @@
 <?php
 
+// database/migrations/YYYY_MM_DD_create_exercises_table.php
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,25 +9,21 @@ class CreateExercisesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('exercises', function (Blueprint $table) {
-            $table->id(); // Auto-incremental primary key
-            $table->string('name'); // Name column
-            $table->text('description'); // Description column
-            $table->timestamps(); // Created at and updated at timestamps
+            $table->id();
+            $table->string('name');
+            $table->text('description');
+            $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('exercises');
     }

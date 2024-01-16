@@ -18,10 +18,12 @@ class CreateReviewsTable extends Migration
             $table->text('content');
             $table->unsignedInteger('rating'); 
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('workout_id');
             $table->timestamps();
 
             // Foreign key constraint
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('workout_id')->references('id')->on('workouts')->onDelete('cascade');
         });
     }
 

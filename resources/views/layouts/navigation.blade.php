@@ -19,6 +19,18 @@
                     <x-nav-link :href="route('workouts.main')" :active="request()->routeIs('workouts.main')">
                         {{ __('Workouts') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('exercises.main')" :active="request()->routeIs('exercises.main')">
+                        {{ __('Exercises') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('reviews.main')" :active="request()->routeIs('reviews.main')">
+                        {{ __('My reviews') }} 
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('wishlist.main')" :active="request()->routeIs('wishlist.main')">
+                        {{ __('Wishlist') }}
+                    </x-nav-link>
                 </div>
             </div>
 

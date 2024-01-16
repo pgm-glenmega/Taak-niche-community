@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Workout;
+use App\Models\Bodypart;
+
 
 class Exercise extends Model
 {
@@ -16,4 +18,9 @@ class Exercise extends Model
     {
         return $this->belongsToMany(Workout::class, 'workout_exercise')->withPivot('sets', 'reps');
     }
+
+    public function bodyparts()
+{
+    return $this->belongsToMany(Bodypart::class);
+}
 }

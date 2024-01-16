@@ -19,6 +19,8 @@ class WorkoutsFactory extends Factory
         return [
             'name' => fake()->name(),
             'duration' => fake()->numberBetween(10, 120), //minutes
+            'description' => fake()->text(),
+            'instructions' => fake()->text(),
         ];
     }
 }
