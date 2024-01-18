@@ -4,7 +4,6 @@
 <div class="container mx-auto mt-8">
     <h1 class="text-4xl text-white font-bold mb-4">Edit Workout</h1>
 
-    <!-- Form for editing workout -->
     <form action="{{ route('userworkouts.update', ['id' => $workout->id]) }}" method="post" class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
         @csrf
         @method('PUT')
@@ -46,8 +45,8 @@
                     <label for="exercise_{{ $exercise->id }}" class="ml-2">{{ $exercise->name }}</label>
 
                     <div class="ml-2 setsRepsFields hidden">
-                        <input type="number" name="sets[{{ $exercise->id }}]" placeholder="Sets" class="p-2 border rounded-md">
-                        <input type="number" name="reps[{{ $exercise->id }}]" placeholder="Reps" class="ml-2 p-2 border rounded-md">
+                        <input type="number" name="sets[{{ $exercise->id }}]" placeholder="Sets" class="p-2 border rounded-md" value="{{ $workout->exercises->find($exercise->id)->pivot->sets ?? '' }}">
+                        <input type="number" name="reps[{{ $exercise->id }}]" placeholder="Reps" class="ml-2 p-2 border rounded-md" value="{{ $workout->exercises->find($exercise->id)->pivot->reps ?? '' }}">
                     </div>
                 </div>
             @endforeach
@@ -58,7 +57,6 @@
         </button>
     </form>
 
-    <!-- Remove button -->
     <form action="{{ route('userworkouts.destroy', ['id' => $workout->id]) }}" method="post" class="mt-4">
         @csrf
         @method('DELETE')

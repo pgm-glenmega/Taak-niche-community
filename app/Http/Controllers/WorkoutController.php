@@ -47,10 +47,8 @@ class WorkoutController extends Controller
         'description' => 'required|string', 
     ]);
 
-    // Get the currently authenticated user
     $user = Auth::user();
 
-    // Create the workout with the user_id set
     $workout = $user->workouts()->create([
         'name' => $request->input('name'),
         'duration' => $request->input('duration'),
@@ -64,11 +62,9 @@ class WorkoutController extends Controller
 
     $exercises = $request->input('exercises');
 
-    // Use the actual values for 'sets' and 'reps' if provided
     $sets = $request->input('sets', []);
     $reps = $request->input('reps', []);
 
-    // Sync the exercises relationship with 'sets' and 'reps'
     $syncData = [];
     foreach ($exercises as $exerciseId) {
         $syncData[$exerciseId] = [

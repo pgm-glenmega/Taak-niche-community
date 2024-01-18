@@ -14,7 +14,7 @@ class UserworkoutsController extends Controller
         $user = User::find($userId);
     
         if (!$user) {
-            abort(404); // or handle the case when the user is not found
+            abort(404);
         }
     
         $workouts = $user->workouts;
@@ -33,7 +33,6 @@ class UserworkoutsController extends Controller
     public function updateUsersWorkout(Request $request, $id) {
         $workout = Workout::findOrFail($id);
     
-        // Update basic workout information
         $workout->update([
             'name' => $request->input('name'),
             'duration' => $request->input('duration'),
@@ -42,13 +41,14 @@ class UserworkoutsController extends Controller
             'instructions' => $request->input('instructions'),
         ]);
     
-        // Sync the exercises relationship with 'sets' and 'reps'
-        $workout->exercises()->sync($request->input('exercises', []), [
-            'sets' => $request->input('sets', []), 
-            'reps' => $request->input('reps', []),
-        ]);
+        $workout->exercises()->sync($request->input('exercises', []));
+
+foreach ($request->input('sets', []) as $exerciseId => $sets) {
+    $reps = $request->input('reps.' . $exerciseId, null); // Use null or a default value if needed
+    $workout->exercises()->updateExistingPivot($exerciseId, compact('sets', 'reps'));
+}
+
     
-        // Get the user ID directly from the relationship
         $userId = $workout->users->first()->id;
     
         return redirect()->route('userworkouts.main', ['userId' => $userId])->with('success', 'Workout updated successfully!');
@@ -56,15 +56,12 @@ class UserworkoutsController extends Controller
     
     public function destroy($id)
 {
-    // Retrieve the workout
     $workout = Workout::findOrFail($id);
 
-    // Check if the logged-in user is associated with the workout
     if (!$workout->users->contains(auth()->user()->id)) {
         abort(403, 'Unauthorized action.');
     }
 
-    // If the workout is associated with only one user, delete it entirely
     if ($workout->users()->count() == 1) {
         $workout->delete();
     } else {
@@ -74,8 +71,5 @@ class UserworkoutsController extends Controller
 
     return redirect()->route('workouts.main')->with('success', 'Workout removed successfully.');
 }
-
-
-
 
 }

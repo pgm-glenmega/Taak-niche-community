@@ -16,8 +16,8 @@ return new class extends Migration
         $table->id();
         $table->unsignedBigInteger('exercise_id');
         $table->unsignedBigInteger('workout_id');
-        $table->unsignedInteger('sets'); 
-        $table->unsignedInteger('reps'); 
+        $table->unsignedInteger('sets')->nullable(); 
+        $table->unsignedInteger('reps')->nullable(); 
         $table->timestamps();
         
         // Foreign key constraints
