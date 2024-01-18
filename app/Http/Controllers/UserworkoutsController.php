@@ -65,11 +65,13 @@ foreach ($request->input('sets', []) as $exerciseId => $sets) {
     if ($workout->users()->count() == 1) {
         $workout->delete();
     } else {
-        // Otherwise, just detach it from the logged-in user
         $workout->users()->detach(auth()->user()->id);
     }
 
-    return redirect()->route('workouts.main')->with('success', 'Workout removed successfully.');
+    $userId = $workout->users->first()->id;
+
+    return redirect()->route('userworkouts.main', ['userId' => $userId])->with('success', 'Workout removed successfully.');
 }
+
 
 }

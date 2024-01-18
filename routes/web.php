@@ -61,9 +61,15 @@ Route::post('/wishlist/add/{workout}', [WishlistController::class,'addToWishlist
 Route::delete('/wishlist/remove/{workout}', [WishlistController::class,'removeFromWishlist'])->name('wishlist.remove');
 
 //user workouts routes
-Route::get('/userworkouts/{userId}', [UserworkoutsController::class, 'showUserWorkouts'])->name('userworkouts.main');
-Route::get('/userworkouts/{id}/edit', [UserworkoutsController::class, 'editUsersworkout'])->name('userworkouts.edit');
-Route::put('/userworkouts/{id}/update', [UserworkoutsController::class, 'updateUsersWorkout'])->name('userworkouts.update');
-Route::delete('/userworkouts/{id}', [UserWorkoutsController::class, 'destroy'])->name('userworkouts.destroy');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/userworkouts/{id}/edit', [UserworkoutsController::class, 'editUsersworkout'])->name('userworkouts.edit');
+    Route::put('/userworkouts/{id}/update', [UserworkoutsController::class, 'updateUsersWorkout'])->name('userworkouts.update');
+    Route::delete('/userworkouts/{id}', [UserWorkoutsController::class, 'destroy'])->name('userworkouts.destroy');
+    Route::get('/userworkouts/{userId}', [UserworkoutsController::class, 'showUserWorkouts'])
+        ->name('userworkouts.main')
+        ->middleware('checkUserId');
+});
+// Route::get('/userworkouts/{userId}', [UserworkoutsController::class, 'showUserWorkouts'])->name('userworkouts.main');
+
 
 require __DIR__.'/auth.php';
