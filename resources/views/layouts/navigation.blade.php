@@ -12,10 +12,6 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-
                     <x-nav-link :href="route('workouts.main')" :active="request()->routeIs('workouts.main')">
                         {{ __('Workouts') }}
                     </x-nav-link>
@@ -30,6 +26,10 @@
 
                     <x-nav-link :href="route('wishlist.main')" :active="request()->routeIs('wishlist.main')">
                         {{ __('Wishlist') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('userworkouts.main', ['userId' => Auth::id()])" :active="request()->routeIs('userworkouts.main')">
+                        {{ __('My Workouts') }}
                     </x-nav-link>
                 </div>
             </div>

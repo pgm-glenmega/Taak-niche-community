@@ -52,6 +52,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Workout::class, 'workout_user');
     }
-
-    
 }

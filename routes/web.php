@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WorkoutController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\UserworkoutsController;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +39,7 @@ Route::middleware('auth')->group(function () {
 });
 
 //workout routes
-Route::get('/workouts', [WorkoutController::class, 'index'])->name('workouts.main');
+Route::get('/workouts', [WorkoutController::class, 'index'])->middleware(['auth', 'verified'])->name('workouts.main');
 Route::get('/workouts/create', [WorkoutController::class, 'create'])->name('workouts.create');
 Route::post('/workouts/store', [WorkoutController::class, 'store'])->name('workouts.store');
 Route::get('/workouts/search', [WorkoutController::class, 'search'])->name('workouts.search');
@@ -58,5 +59,11 @@ Route::post('/workouts/{workout}/reviews', [ReviewController::class, 'store'])->
 Route::get('/wishlist', [WishlistController::class, 'viewWishlist'])->name('wishlist.main');
 Route::post('/wishlist/add/{workout}', [WishlistController::class,'addToWishlist'])->name('wishlist.add');
 Route::delete('/wishlist/remove/{workout}', [WishlistController::class,'removeFromWishlist'])->name('wishlist.remove');
+
+//user workouts routes
+Route::get('/userworkouts/{userId}', [UserworkoutsController::class, 'showUserWorkouts'])->name('userworkouts.main');
+Route::get('/userworkouts/{id}/edit', [UserworkoutsController::class, 'editUsersworkout'])->name('userworkouts.edit');
+Route::put('/userworkouts/{id}/update', [UserworkoutsController::class, 'updateUsersWorkout'])->name('userworkouts.update');
+Route::delete('/userworkouts/{id}', [UserWorkoutsController::class, 'destroy'])->name('userworkouts.destroy');
 
 require __DIR__.'/auth.php';

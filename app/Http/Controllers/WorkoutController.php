@@ -5,6 +5,7 @@ use App\Models\Workout;
 use App\Models\Bodypart;
 use App\Models\Exercise;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WorkoutController extends Controller
 {
@@ -46,8 +47,11 @@ class WorkoutController extends Controller
         'description' => 'required|string', 
     ]);
 
-    // Create the workout
-    $workout = Workout::create([
+    // Get the currently authenticated user
+    $user = Auth::user();
+
+    // Create the workout with the user_id set
+    $workout = $user->workouts()->create([
         'name' => $request->input('name'),
         'duration' => $request->input('duration'),
         'bodypart_id' => $request->input('bodypart'),
@@ -59,13 +63,25 @@ class WorkoutController extends Controller
     $workout->bodyparts()->attach($bodyparts);
 
     $exercises = $request->input('exercises');
-    $workout->exercises()->attach($exercises, [
-        'sets' => 3,
-        'reps' => 10,
-    ]);
+
+    // Use the actual values for 'sets' and 'reps' if provided
+    $sets = $request->input('sets', []);
+    $reps = $request->input('reps', []);
+
+    // Sync the exercises relationship with 'sets' and 'reps'
+    $syncData = [];
+    foreach ($exercises as $exerciseId) {
+        $syncData[$exerciseId] = [
+            'sets' => $sets[$exerciseId] ?? null,
+            'reps' => $reps[$exerciseId] ?? null,
+        ];
+    }
+
+    $workout->exercises()->attach($syncData);
 
     return redirect()->route('workouts.main')->with('success', 'Workout added successfully.');
 }
+
 
 
 

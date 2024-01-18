@@ -14,7 +14,7 @@
                     <p class="text-gray-600 mt-2">Body Parts: {{ $workout->bodyparts->pluck('name')->implode(', ') }}</p>
                 </div>
                 <div class="bg-gray-100 p-4">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded-md">View Workout</button>
+                <a href="{{ route('workouts.detail', ['id' => $workout->id]) }}" class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md"> View Workout</a>                
                 </div>
             </div>
     @empty

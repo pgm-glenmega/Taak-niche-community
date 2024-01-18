@@ -50,9 +50,10 @@
                         <label for="exercise_{{ $exercise->id }}" class="ml-2">{{ $exercise->name }}</label>
 
                         <div class="ml-2 setsRepsFields hidden">
-                            <input type="number" name="sets[{{ $exercise->id }}]" placeholder="Sets" class="p-2 border rounded-md">
-                            <input type="number" name="reps[{{ $exercise->id }}]" placeholder="Reps" class="ml-2 p-2 border rounded-md">
-                        </div>
+    <input type="number" name="sets[{{ $exercise->id }}]" placeholder="Sets" class="p-2 border rounded-md" value="">
+    <input type="number" name="reps[{{ $exercise->id }}]" placeholder="Reps" class="ml-2 p-2 border rounded-md" value="">
+</div>
+
                     </div>
                 @endforeach
             </div>

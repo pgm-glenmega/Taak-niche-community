@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
-
 @section('content')
 
-@include('dashboard.partials.savedworkouts')
+@include('userworkouts.partials.allcreatedworkouts')
 
 @endsection
