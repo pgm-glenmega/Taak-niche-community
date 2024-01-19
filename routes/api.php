@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Workout;
+use Illuminate\Http\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/workouts', function () {
+    $page = request('page') ?? 1;
+    $workouts = Workout::paginate(30, ['*'], 'page', $page);
+    return json_encode($workouts);
 });

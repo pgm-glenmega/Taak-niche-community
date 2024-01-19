@@ -22,12 +22,5 @@ class DatabaseSeeder extends Seeder
         $this->call(WorkoutsExercisesTableSeeder::class);
         $this->call(WorkoutsUsersTableSeeder::class);
         $this->call(ExerciseBodypartSeeder::class);
-        
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }

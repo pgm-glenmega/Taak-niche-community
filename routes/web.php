@@ -69,7 +69,5 @@ Route::middleware(['auth'])->group(function () {
         ->name('userworkouts.main')
         ->middleware('checkUserId');
 });
-// Route::get('/userworkouts/{userId}', [UserworkoutsController::class, 'showUserWorkouts'])->name('userworkouts.main');
-
 
 require __DIR__.'/auth.php';

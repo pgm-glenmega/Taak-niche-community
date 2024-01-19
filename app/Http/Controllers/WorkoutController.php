@@ -10,16 +10,22 @@ use Illuminate\Support\Facades\Auth;
 class WorkoutController extends Controller
 {
     public function index(Request $request)
-    {
-        $bodyPartFilter = $request->query('body_part');
-        $workouts = $bodyPartFilter
-            ? Workout::whereHas('bodyparts', function ($query) use ($bodyPartFilter) {
-                $query->where('name', $bodyPartFilter);
-            })->get()
-            : Workout::all();
+{
+    $bodyPartFilter = $request->query('body_part');
 
-        return view('workouts.main', ['workouts' => $workouts, 'selectedBodyPart' => $bodyPartFilter]);
+    $query = Workout::query()->orderBy('name', 'asc');
+
+    if ($bodyPartFilter) {
+        $query->whereHas('bodyparts', function ($query) use ($bodyPartFilter) {
+            $query->where('name', $bodyPartFilter);
+        });
     }
+
+    $workouts = $query->paginate(30);
+
+    return view('workouts.main', ['workouts' => $workouts, 'selectedBodyPart' => $bodyPartFilter]);
+}
+
 
     public function detail($id)
     {

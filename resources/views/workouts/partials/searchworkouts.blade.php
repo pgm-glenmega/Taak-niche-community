@@ -1,4 +1,4 @@
-<form action="{{ route('workouts.search') }}" method="GET" class="mb-4 flex justify-center my-20">
+<form action="workouts/search" method="GET" class="mb-4 flex justify-center my-20">
     <input 
         type="text" 
         name="query" 
