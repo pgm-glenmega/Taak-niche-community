@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mx-auto my-8">
-        <h1 class="text-4xl font-bold text-white mb-6">Wishlist</h1>
+        <h1 class="text-6xl font-bold text-white mb-6">Wishlist</h1>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             @forelse($wishlist as $workout)
@@ -21,7 +21,7 @@
                     </div>
                 </div>
             @empty
-                <p class="text-gray-600">No workouts in the wishlist.</p>
+                <p class="text-white text-2xl">No workouts in the wishlist.</p>
             @endforelse
         </div>
     </div>
