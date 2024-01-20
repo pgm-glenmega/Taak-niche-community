@@ -54,6 +54,11 @@ Route::get('/exercises/{id}', [ExercisesController::class, 'detail'])->name('exe
 Route::get('/reviews', [ReviewController::class, 'userReviews'])->name('reviews.main');
 Route::get('/workouts/{workout}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
 Route::post('/workouts/{workout}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+Route::get('/reviews/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+Route::put('/reviews/{id}', [ReviewController::class,'update'])->name('reviews.update');
+
+
 
 //wishlist routes
 Route::get('/wishlist', [WishlistController::class, 'viewWishlist'])->name('wishlist.main');

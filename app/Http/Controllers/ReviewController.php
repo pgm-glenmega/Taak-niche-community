@@ -43,4 +43,59 @@ class ReviewController extends Controller
         return view('reviews.main', ['reviews' => $reviews]);
 }
 
+public function destroy($id)
+{
+    $review = Review::find($id);
+
+    if (!$review) {
+        return redirect()->back()->withErrors(['error' => 'Review not found.']);
+    }
+
+    // Check if the user is authorized to delete the review (you can customize this logic)
+    if ($review->user_id != auth()->id()) {
+        return redirect()->back()->withErrors(['error' => 'Unauthorized to remove this review.']);
+    }
+
+    $review->delete();
+
+    return redirect()->back()->with('success', 'Review removed successfully.');
+}
+
+// ReviewController.php
+
+public function edit($id)
+{
+    $review = Review::find($id);
+
+    if (!$review) {
+        return redirect()->back()->withErrors(['error' => 'Review not found.']);
+    }
+
+
+    return view('reviews.edit', ['review' => $review]);
+}
+
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'rating' => 'required|integer|min:1|max:5',
+        'content' => 'required|string',
+    ]);
+
+    $review = Review::find($id);
+
+    if (!$review) {
+        return redirect()->back()->withErrors(['error' => 'Review not found.']);
+    }
+
+
+    $review->update([
+        'rating' => $request->input('rating'),
+        'content' => $request->input('content'),
+    ]);
+
+    return redirect()->route('reviews.main')->with('success', 'Review updated successfully.');
+}
+
+
 }
