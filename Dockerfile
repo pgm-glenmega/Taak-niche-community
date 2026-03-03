@@ -19,7 +19,8 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y \
     git unzip libzip-dev \
   && docker-php-ext-install pdo_mysql zip \
-  && a2enmod rewrite \
+  && a2dismod mpm_event mpm_worker 2>/dev/null || true \
+  && a2enmod mpm_prefork rewrite \
   && rm -rf /var/lib/apt/lists/*
 
 # Set Laravel public folder as web root
