@@ -9,9 +9,8 @@ RUN npm run build
 # ---- 2) Install PHP dependencies ----
 FROM composer:2 AS vendor
 WORKDIR /app
-COPY composer.json composer.lock ./
-RUN composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader
 COPY . .
+RUN composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
 # ---- 3) Runtime (Apache + PHP 8.2) ----
 FROM php:8.2-apache
