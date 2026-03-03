@@ -14,6 +14,9 @@ RUN composer install --no-dev --prefer-dist --no-interaction --no-progress --opt
 
 # ---- 3) Runtime (Apache + PHP 8.2) ----
 FROM php:8.2-apache
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+CMD ["/entrypoint.sh"]
 
 # System deps + PHP extensions (pdo_mysql is the key fix)
 RUN apt-get update && apt-get install -y \
